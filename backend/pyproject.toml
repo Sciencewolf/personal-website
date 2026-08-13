@@ -2,6 +2,13 @@
 entrypoint = "api:app"
 
 [project]
-name = "personal-website-api"
-version = "1.0.0"
+name = "personal-website-backend"
+version = "0.1.0"
 requires-python = ">=3.12"
+
+dependencies = [
+    "Flask",
+    "flask-cors",
+    "requests",
+    "python-dotenv"
+]
