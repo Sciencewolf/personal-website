@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Analytics } from "@vercel/analytics/vue"
+
 </script>
 
 <template>
@@ -13,7 +13,6 @@ import { Analytics } from "@vercel/analytics/vue"
   <main>
 
   </main>
-  <Analytics />
 </template>
 
 <style scoped>
