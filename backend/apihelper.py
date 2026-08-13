@@ -18,7 +18,7 @@ def get_repo(url: str) -> list[str]:
     return req.json()
 
 
-def get_newest_repos() -> list[dict[str, list[str]]]:
+def get_newest_repos() -> list[dict[str, list[dict[str, str | list[str]]]]]:
     url = user("repos")
 
     req = requests.get(url, headers={
@@ -28,22 +28,22 @@ def get_newest_repos() -> list[dict[str, list[str]]]:
     repos = [
         {
             repo['full_name']: [
-                repo['created_at'],
-                repo['html_url'],
-                repo['topics'],
-                repo['pushed_at'],
-                repo['description'],
-                repo['url'],
-                repo['homepage'],
+                {"created_at": repo['created_at']},
+                {"html_url": repo['html_url']},
+                {"topics": repo['topics']},
+                {"pushed_at": repo['pushed_at']},
+                {"description": repo['description']},
+                {"url": repo['url']},
+                {"homepage": repo['homepage']},
             ]
         } for repo in req.json()]
 
-    repos.sort(key=lambda repo: list(repo.values())[0][3], reverse=True)
+    repos.sort(key=lambda repo: list(repo.values())[0][3]['pushed_at'], reverse=True)
 
     return repos
 
 
-def user(path: str):
+def user(path: str='user'):
     req = requests.get('https://api.github.com/user', headers={
         "Authorization": f"Bearer {get_token()}"
     })

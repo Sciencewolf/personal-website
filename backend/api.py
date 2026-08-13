@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, Blueprint, request, render_template
+from flask import Flask, jsonify, Blueprint
 from apihelper import get_newest_repos, user
 from flask_cors import CORS
 
@@ -13,7 +13,7 @@ CORS(api)
 
 @api.route('/profile', methods=['GET'])
 def github_data():
-    github_user = user("user")
+    github_user = user()
 
     return jsonify({'github_user': github_user})
 
