@@ -6,10 +6,18 @@
 
     <div class="nav__links">
       <a href="#about">About</a>
-      <a href="#projects">Projects</a>
+      <a class="nav__projects" href="#projects">Projects</a>
       <a href="#contact">Contact</a>
       <a
-        class="nav__github"
+        class="nav__external"
+        href="https://files.martonaron.dev/data/Marton_Aron_CV.pdf"
+        target="_blank"
+        rel="noreferrer"
+      >
+        CV <span aria-hidden="true">↗</span>
+      </a>
+      <a
+        class="nav__external"
         href="https://github.com/Sciencewolf"
         target="_blank"
         rel="noreferrer"
@@ -60,7 +68,7 @@
   color: var(--color-heading);
 }
 
-.nav__github {
+.nav__external {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -71,7 +79,7 @@
     min-height: 5rem;
   }
 
-  .nav__links a:not(.nav__github) {
+  .nav__links a:not(.nav__external):not(.nav__projects) {
     display: none;
   }
 }

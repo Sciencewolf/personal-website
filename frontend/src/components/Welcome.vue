@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const skills = ['Software engineering', 'Web development', 'Problem solving']
+const skills = ['Software engineering', 'Web development', 'Hardware/software engineering']
 </script>
 
 <template>
-  <section class="welcome" aria-labelledby="welcome-title">
+  <section id="about" class="welcome" aria-labelledby="welcome-title">
     <p class="welcome__eyebrow">Software Engineer</p>
 
     <h1 id="welcome-title">Hi there, I'm Márton Áron.</h1>
@@ -30,8 +30,8 @@ const skills = ['Software engineering', 'Web development', 'Problem solving']
   flex-direction: column;
   justify-content: center;
   max-width: 820px;
-  min-height: calc(100vh - 6rem);
-  padding: clamp(5rem, 12vw, 9rem) 0;
+  min-height: min(64vh, 38rem);
+  padding: 3rem 0 2rem;
 }
 
 .welcome__eyebrow {
@@ -44,7 +44,7 @@ const skills = ['Software engineering', 'Web development', 'Problem solving']
 h1 {
   margin: 0;
   color: var(--color-heading);
-  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-size: clamp(3rem, 7vw, 5.5rem);
   font-weight: 700;
   letter-spacing: -0.055em;
   line-height: 1;
@@ -52,7 +52,7 @@ h1 {
 
 .welcome__intro {
   max-width: 650px;
-  margin: 2rem 0 0;
+  margin: 1.5rem 0 0;
   color: var(--color-text-muted);
   font-size: clamp(1rem, 1.6vw, 1.2rem);
   line-height: 1.7;
@@ -62,7 +62,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 2.25rem;
+  margin-top: 1.75rem;
 }
 
 .button {
@@ -105,7 +105,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 0;
-  margin: 3.5rem 0 0;
+  margin: 2.25rem 0 0;
   padding: 0;
   color: var(--color-text-subtle);
   font-size: 0.85rem;
@@ -120,8 +120,8 @@ h1 {
 
 @media (max-width: 560px) {
   .welcome {
-    min-height: calc(100vh - 5rem);
-    padding: 4rem 0;
+    min-height: auto;
+    padding: 2.5rem 0 3rem;
   }
 
   .welcome__actions {

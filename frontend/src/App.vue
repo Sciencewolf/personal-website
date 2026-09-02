@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue'
 import Welcome from '@/components/Welcome.vue'
+import GitHubShowcase from '@/components/GitHubShowcase.vue'
+import ContactFooter from '@/components/ContactFooter.vue'
 </script>
 
 <template>
@@ -10,19 +12,24 @@ import Welcome from '@/components/Welcome.vue'
 
   <main class="site-main">
     <Welcome />
+    <GitHubShowcase />
   </main>
+
+  <ContactFooter class="site-footer" />
 </template>
 
 <style scoped>
 .site-header,
-.site-main {
+.site-main,
+.site-footer {
   width: min(100% - 3rem, 1440px);
   margin-inline: auto;
 }
 
 @media (max-width: 600px) {
   .site-header,
-  .site-main {
+  .site-main,
+  .site-footer {
     width: min(100% - 2rem, 1440px);
   }
 }
