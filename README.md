@@ -38,18 +38,32 @@ personal-website/
 ├── backend/
 │   ├── api.py
 │   ├── apihelper.py
+│   ├── pyproject.toml
 │   ├── requirements.txt
 │   └── .gitignore
-│
 ├── frontend/
 │   ├── src/
 │   │   ├── assets/
+│   │   │   ├── base.css
+│   │   │   └── main.css
+│   │   ├── components/
+│   │   │   ├── ContactFooter.vue
+│   │   │   ├── GitHubShowcase.vue
+│   │   │   ├── NavBar.vue
+│   │   │   └── Welcome.vue
+│   │   ├── services/
+│   │   │   └── github.ts
 │   │   ├── App.vue
 │   │   └── main.ts
+│   ├── env.d.ts
+│   ├── index.html
+│   ├── package-lock.json
 │   ├── package.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
 │   ├── vite.config.ts
-│   └── tsconfig.json
-│
+│   └── README.md
 ├── LICENSE
 └── README.md
 ```
