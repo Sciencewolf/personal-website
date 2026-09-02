@@ -1,29 +1,67 @@
 import os
+from pathlib import Path
+from typing import Any
 
 from dotenv import load_dotenv
 import requests
 
-load_dotenv()
+load_dotenv(Path(__file__).with_name('.env'))
+
+GITHUB_API_URL = 'https://api.github.com'
+
+
+class GitHubConfigurationError(RuntimeError):
+    pass
 
 
 def get_token() -> str:
-    return os.getenv('GITHUB_TOKEN', '')
+    token = os.getenv('GITHUB_TOKEN', '').strip()
+
+    if not token:
+        raise GitHubConfigurationError('GITHUB_TOKEN is not configured.')
+
+    return token
 
 
-def get_repo(url: str) -> list[str]:
-    req = requests.get(url, headers={
-        "Authorization": f"Bearer {get_token()}"
-    })
+def github_headers() -> dict[str, str]:
+    headers = {
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+    }
+    token = get_token()
+
+    if token:
+        headers['Authorization'] = f'Bearer {token}'
+
+    return headers
+
+
+def get_repo(url: str) -> Any:
+    req = requests.get(url, headers=github_headers(), timeout=10)
+    req.raise_for_status()
 
     return req.json()
 
 
-def get_newest_repos() -> list[dict[str, list[dict[str, str | list[str]]]]]:
-    url = user("repos")
+def get_newest_repos() -> list[dict[str, list[dict[str, Any]]]]:
+    url = f'{GITHUB_API_URL}/user/repos'
+    req = requests.get(
+        url,
+        headers=github_headers(),
+        params={
+            'affiliation': 'owner',
+            'visibility': 'public',
+            'per_page': 100,
+            'sort': 'pushed',
+            'direction': 'desc',
+        },
+        timeout=10,
+    )
+    req.raise_for_status()
+    response = req.json()
 
-    req = requests.get(url, headers={
-        "Authorization": f"Bearer {get_token()}"
-    })
+    if not isinstance(response, list):
+        raise ValueError('GitHub returned an unexpected repositories response.')
 
     repos = [
         {
@@ -36,22 +74,30 @@ def get_newest_repos() -> list[dict[str, list[dict[str, str | list[str]]]]]:
                 {"url": repo['url']},
                 {"homepage": repo['homepage']},
             ]
-        } for repo in req.json()]
+        } for repo in response]
 
     repos.sort(key=lambda repo: list(repo.values())[0][3]['pushed_at'], reverse=True)
 
     return repos
 
 
-def user(path: str='user'):
-    req = requests.get('https://api.github.com/user', headers={
-        "Authorization": f"Bearer {get_token()}"
-    })
+def user(path: str = 'user'):
+    req = requests.get(
+        f'{GITHUB_API_URL}/user',
+        headers=github_headers(),
+        timeout=10,
+    )
+    req.raise_for_status()
+    response = req.json()
 
     match path:
-        case "repos":
-            return req.json().get("repos_url")
-        case "user":
-            return [req.json().get("avatar_url"), req.json().get("name"), req.json().get("location")]
+        case 'repos':
+            return response.get('repos_url')
+        case 'user':
+            return [
+                response.get('avatar_url'),
+                response.get('name') or response.get('login'),
+                response.get('location'),
+            ]
 
     return None
