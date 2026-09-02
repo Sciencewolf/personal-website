@@ -164,15 +164,17 @@ h2 {
 @media (max-width: 760px) {
   .contact__bottom {
     grid-template-columns: 1fr;
+    justify-items: center;
     gap: 1rem;
+    text-align: center;
   }
 
   .contact__links {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .contact__credit {
-    justify-self: start;
+    justify-self: center;
   }
 }
 
