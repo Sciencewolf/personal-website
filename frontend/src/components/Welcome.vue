@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const skills = ['Software engineering', 'Web development', 'Hardware/software engineering']
+const skills = ['Python', 'Flask', 'TypeScript', 'Vue', 'Kotlin']
 </script>
 
 <template>
@@ -9,8 +9,10 @@ const skills = ['Software engineering', 'Web development', 'Hardware/software en
     <h1 id="welcome-title">Hi there, I'm Márton Áron.</h1>
 
     <p class="welcome__intro">
-      I build reliable software and practical digital products. I enjoy solving complex problems
-      and turning ideas into simple, maintainable solutions.
+      I build reliable software and practical digital products — from a Raspberry Pi-powered
+      smart incubator with its own Android app to full-stack web platforms. I'm currently
+      working as a software developer, and I enjoy turning ambitious ideas into simple,
+      maintainable solutions.
     </p>
 
     <div class="welcome__actions">

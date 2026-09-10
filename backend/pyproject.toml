@@ -7,8 +7,8 @@ version = "0.1.0"
 requires-python = ">=3.12"
 
 dependencies = [
-    "Flask",
-    "flask-cors",
-    "requests",
-    "python-dotenv"
+    "Flask==3.1.0",
+    "flask-cors==5.0.0",
+    "requests==2.32.3",
+    "python-dotenv==1.0.1"
 ]

@@ -79,7 +79,6 @@ onBeforeUnmount(() => controller?.abort())
         <p class="profile__name">{{ profile.name }}</p>
         <p v-if="profile.location" class="profile__location">{{ profile.location }}</p>
       </div>
-      <span class="profile__status"><span aria-hidden="true"></span> Available on GitHub</span>
     </div>
 
     <div v-if="isLoading" class="repositories repositories--loading" aria-live="polite">
@@ -216,23 +215,6 @@ h2 {
   margin-top: 0.15rem;
   color: var(--color-text-subtle);
   font-size: 0.82rem;
-}
-
-.profile__status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-left: auto;
-  color: var(--color-text-muted);
-  font-size: 0.8rem;
-}
-
-.profile__status > span {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: #4fc17a;
-  box-shadow: 0 0 0 4px rgb(79 193 122 / 12%);
 }
 
 .repositories {
@@ -425,11 +407,6 @@ h3 a:focus-visible {
   .profile {
     align-items: flex-start;
     flex-wrap: wrap;
-  }
-
-  .profile__status {
-    width: 100%;
-    margin: 0.25rem 0 0 4rem;
   }
 
   .repositories {

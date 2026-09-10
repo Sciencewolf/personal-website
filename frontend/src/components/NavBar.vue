@@ -1,18 +1,40 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const isMenuOpen = ref(false)
+
+function closeMenu() {
+  isMenuOpen.value = false
+}
+</script>
 
 <template>
   <nav class="nav" aria-label="Main navigation">
     <a class="nav__brand" href="#" aria-label="Márton Áron – home">MÁ<span>.</span></a>
 
-    <div class="nav__links">
-      <a href="#about">About</a>
-      <a class="nav__projects" href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+    <button
+      type="button"
+      class="nav__toggle"
+      aria-label="Toggle navigation menu"
+      :aria-expanded="isMenuOpen"
+      aria-controls="nav-links"
+      @click="isMenuOpen = !isMenuOpen"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <div id="nav-links" class="nav__links" :class="{ 'nav__links--open': isMenuOpen }">
+      <a href="#about" @click="closeMenu">About</a>
+      <a class="nav__projects" href="#projects" @click="closeMenu">Projects</a>
+      <a href="#contact" @click="closeMenu">Contact</a>
       <a
         class="nav__external"
         href="https://files.martonaron.dev/data/Marton_Aron_CV.pdf"
         target="_blank"
         rel="noreferrer"
+        @click="closeMenu"
       >
         CV <span aria-hidden="true">↗</span>
       </a>
@@ -21,6 +43,7 @@
         href="https://github.com/Sciencewolf"
         target="_blank"
         rel="noreferrer"
+        @click="closeMenu"
       >
         GitHub <span aria-hidden="true">↗</span>
       </a>
@@ -30,6 +53,7 @@
 
 <style scoped>
 .nav {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,6 +71,23 @@
 
 .nav__brand span {
   color: var(--color-accent);
+}
+
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 0.32rem;
+  padding: 0.5rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav__toggle span {
+  display: block;
+  width: 1.4rem;
+  height: 2px;
+  background: var(--color-heading);
 }
 
 .nav__links {
@@ -79,8 +120,46 @@
     min-height: 5rem;
   }
 
-  .nav__links a:not(.nav__external):not(.nav__projects) {
+  .nav__toggle {
+    display: flex;
+  }
+
+  .nav__links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: 10;
     display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-background);
+  }
+
+  .nav__links--open {
+    display: flex;
+  }
+
+  .nav__links a {
+    padding: 0.85rem 0.25rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .nav__links a:first-child {
+    border-top: 0;
+  }
+
+  .nav__external {
+    justify-content: space-between;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__links a {
+    transition: none;
   }
 }
 </style>

@@ -45,13 +45,10 @@ function asString(value: unknown): string | null {
 export async function fetchGitHubProfile(signal?: AbortSignal): Promise<GitHubProfile> {
   const response = await request<unknown>('/api/v1/profile', signal)
   const profile = asRecord(response).github_user
+  const record = asRecord(profile)
 
-  if (!Array.isArray(profile)) {
-    throw new Error('The profile response has an unexpected format.')
-  }
-
-  const avatarUrl = asString(profile[0])
-  const name = asString(profile[1])
+  const avatarUrl = asString(record.avatar_url)
+  const name = asString(record.name)
 
   if (!avatarUrl || !name) {
     throw new Error('The profile response is missing required data.')
@@ -60,7 +57,7 @@ export async function fetchGitHubProfile(signal?: AbortSignal): Promise<GitHubPr
   return {
     avatarUrl,
     name,
-    location: asString(profile[2]),
+    location: asString(record.location),
   }
 }
 
@@ -75,19 +72,13 @@ export async function fetchGitHubRepositories(
   }
 
   return rawRepositories.flatMap((rawRepository) => {
-    const [entry] = Object.entries(asRecord(rawRepository))
-
-    if (!entry) return []
-
-    const [fullName, rawFields] = entry
-    const fields = Array.isArray(rawFields)
-      ? Object.assign({}, ...rawFields.map((field) => asRecord(field)))
-      : asRecord(rawFields)
+    const fields = asRecord(rawRepository)
+    const fullName = asString(fields.full_name)
     const htmlUrl = asString(fields.html_url)
     const pushedAt = asString(fields.pushed_at)
     const topics: unknown = fields.topics
 
-    if (!htmlUrl || !pushedAt) return []
+    if (!fullName || !htmlUrl || !pushedAt) return []
 
     return [
       {

@@ -93,13 +93,8 @@ Returns GitHub repositories sorted by their latest push date.
 
 Planned features include:
 
-* Personal introduction and developer profile
-* Project showcase
-* Dynamic GitHub repositories
-* GitHub profile integration
-* Skills and technologies
-* Contact information
-* Responsive design
+* Skills and technologies section
+* Work experience section
 * Improved animations and interactions
 
 ## License

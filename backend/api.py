@@ -1,7 +1,5 @@
-import os
-
 from flask import Flask, jsonify, Blueprint
-from apihelper import GitHubConfigurationError, get_newest_repos, user
+from apihelper import get_newest_repos, get_profile
 from flask_cors import CORS
 from requests import RequestException
 
@@ -12,7 +10,7 @@ api = Blueprint('api', __name__, url_prefix='/api/v1')
 default_frontend_origins = [
     'https://martonaron.dev',
     'https://www.martonaron.dev',
-    r'https://.*\.vercel\.app',
+    r'https://personal-website-.*\.vercel\.app',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
 ]
@@ -26,11 +24,6 @@ def health_check():
     return jsonify({'service': 'personal-website-api', 'status': 'ok'})
 
 
-@app.errorhandler(GitHubConfigurationError)
-def github_configuration_error(error):
-    return jsonify({'error': str(error)}), 503
-
-
 @app.errorhandler(RequestException)
 def github_request_error(error):
     return jsonify({'error': 'GitHub is temporarily unavailable.'}), 502
@@ -41,18 +34,23 @@ def github_response_error(error):
     return jsonify({'error': str(error)}), 502
 
 
+@api.after_request
+def add_cache_headers(response):
+    if response.status_code == 200:
+        response.headers['Cache-Control'] = (
+            'public, max-age=300, s-maxage=900, stale-while-revalidate=86400'
+        )
+    return response
+
+
 @api.route('/profile', methods=['GET'])
 def github_data():
-    github_user = user()
-
-    return jsonify({'github_user': github_user})
+    return jsonify({'github_user': get_profile()})
 
 
 @api.route('/repos', methods=['GET'])
 def new_repos():
-    repos = get_newest_repos()
-
-    return jsonify({'repos': repos})
+    return jsonify({'repos': get_newest_repos()})
 
 
 app.register_blueprint(api)
