@@ -1,18 +1,45 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const isMenuOpen = ref(false)
+const navElement = ref<HTMLElement | null>(null)
+const toggleElement = ref<HTMLButtonElement | null>(null)
 
 function closeMenu() {
   isMenuOpen.value = false
 }
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key !== 'Escape' || !isMenuOpen.value) return
+
+  closeMenu()
+  toggleElement.value?.focus()
+}
+
+function handlePointerDown(event: PointerEvent) {
+  if (!isMenuOpen.value) return
+  if (navElement.value?.contains(event.target as Node)) return
+
+  closeMenu()
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleKeydown)
+  document.addEventListener('pointerdown', handlePointerDown)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleKeydown)
+  document.removeEventListener('pointerdown', handlePointerDown)
+})
 </script>
 
 <template>
-  <nav class="nav" aria-label="Main navigation">
-    <a class="nav__brand" href="#" aria-label="Márton Áron – home">MÁ<span>.</span></a>
+  <nav ref="navElement" class="nav" aria-label="Main navigation">
+    <a class="nav__brand" href="#about" aria-label="Márton Áron – home" @click="closeMenu">MÁ<span>.</span></a>
 
     <button
+      ref="toggleElement"
       type="button"
       class="nav__toggle"
       aria-label="Toggle navigation menu"

@@ -62,9 +62,10 @@ export async function fetchGitHubProfile(signal?: AbortSignal): Promise<GitHubPr
 }
 
 export async function fetchGitHubRepositories(
+  limit = 6,
   signal?: AbortSignal,
 ): Promise<GitHubRepository[]> {
-  const response = await request<unknown>('/api/v1/repos', signal)
+  const response = await request<unknown>(`/api/v1/repos?limit=${limit}`, signal)
   const rawRepositories = asRecord(response).repos
 
   if (!Array.isArray(rawRepositories)) {

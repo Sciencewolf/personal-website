@@ -94,13 +94,13 @@ h1 {
 }
 
 .button--primary:hover {
-  border-color: #d7d7d7;
-  background: #d7d7d7;
+  border-color: var(--color-heading-hover);
+  background: var(--color-heading-hover);
 }
 
 .button--secondary:hover {
-  border-color: #686868;
-  background: #1c1c1c;
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-raised);
 }
 
 .welcome__skills {
@@ -116,7 +116,7 @@ h1 {
 
 .welcome__skills li:not(:last-child)::after {
   margin: 0 0.75rem;
-  color: #555;
+  color: var(--color-separator);
   content: '·';
 }
 

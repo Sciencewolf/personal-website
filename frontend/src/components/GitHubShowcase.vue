@@ -14,7 +14,8 @@ const isLoading = ref(true)
 const errorMessage = ref('')
 let controller: AbortController | null = null
 
-const visibleRepositories = computed(() => repositories.value.slice(0, 6))
+const repositoryLimit = 6
+const visibleRepositories = computed(() => repositories.value.slice(0, repositoryLimit))
 const githubUrl = computed(() => {
   const owner = repositories.value[0]?.fullName.split('/')[0]
   return owner ? `https://github.com/${owner}` : 'https://github.com/Sciencewolf'
@@ -40,7 +41,7 @@ async function loadGitHubData() {
 
   const [profileResult, repositoriesResult] = await Promise.allSettled([
     fetchGitHubProfile(controller.signal),
-    fetchGitHubRepositories(controller.signal),
+    fetchGitHubRepositories(repositoryLimit, controller.signal),
   ])
 
   if (profileResult.status === 'fulfilled') profile.value = profileResult.value
@@ -74,7 +75,15 @@ onBeforeUnmount(() => controller?.abort())
     </div>
 
     <div v-if="profile" class="profile">
-      <img class="profile__avatar" :src="profile.avatarUrl" :alt="`${profile.name}'s avatar`" />
+      <img
+        class="profile__avatar"
+        :src="profile.avatarUrl"
+        :alt="`${profile.name}'s avatar`"
+        width="48"
+        height="48"
+        loading="lazy"
+        decoding="async"
+      />
       <div>
         <p class="profile__name">{{ profile.name }}</p>
         <p v-if="profile.location" class="profile__location">{{ profile.location }}</p>
@@ -191,7 +200,7 @@ h2 {
   padding: 1rem 1.1rem;
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
-  background: #161616;
+  background: var(--color-surface);
 }
 
 .profile__avatar {
@@ -230,12 +239,12 @@ h2 {
   padding: 1.4rem;
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
-  background: #161616;
+  background: var(--color-surface);
   transition: border-color 180ms ease, transform 180ms ease;
 }
 
 .repo-card:hover {
-  border-color: #565656;
+  border-color: var(--color-border-hover);
   transform: translateY(-2px);
 }
 
@@ -288,10 +297,10 @@ h3 a:focus-visible {
 
 .repo-card__topics li {
   padding: 0.3rem 0.55rem;
-  border: 1px solid #303f58;
+  border: 1px solid var(--color-tag-border);
   border-radius: 999px;
-  color: #a9c8ff;
-  background: #18202c;
+  color: var(--color-tag-text);
+  background: var(--color-tag-background);
   font-size: 0.7rem;
 }
 
@@ -327,7 +336,7 @@ h3 a:focus-visible {
   width: 45%;
   height: 0.8rem;
   border-radius: 999px;
-  background: #242424;
+  background: var(--color-skeleton);
   animation: pulse 1.2s ease-in-out infinite alternate;
 }
 
@@ -348,7 +357,7 @@ h3 a:focus-visible {
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
   color: var(--color-text-muted);
-  background: #161616;
+  background: var(--color-surface);
 }
 
 .github__empty p,
@@ -387,7 +396,7 @@ h3 a:focus-visible {
 
 @keyframes pulse {
   to {
-    background: #313131;
+    background: var(--color-skeleton-highlight);
   }
 }
 

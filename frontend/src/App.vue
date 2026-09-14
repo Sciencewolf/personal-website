@@ -6,11 +6,13 @@ import ContactFooter from '@/components/ContactFooter.vue'
 </script>
 
 <template>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header">
     <NavBar />
   </header>
 
-  <main class="site-main">
+  <main id="main" class="site-main">
     <Welcome />
     <GitHubShowcase />
   </main>

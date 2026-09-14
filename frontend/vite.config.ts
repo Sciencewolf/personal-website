@@ -5,14 +5,15 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
     vue(),
-    vueDevTools(),
+    // The devtools overlay is a development-only aid and must stay out of the bundle.
+    ...(command === 'serve' ? [vueDevTools()] : []),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-})
+}))

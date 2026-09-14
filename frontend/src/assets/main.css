@@ -1,12 +1,23 @@
 :root {
   --color-background: #111;
+  --color-surface: #161616;
+  --color-surface-raised: #1c1c1c;
   --color-heading: #f1f1f1;
+  --color-heading-hover: #d7d7d7;
   --color-text-muted: #a8a8a8;
   --color-text-subtle: #858585;
   --color-accent: #8eb8ff;
   --color-border: #353535;
+  --color-border-hover: #565656;
+  --color-separator: #555;
+  --color-tag-text: #a9c8ff;
+  --color-tag-border: #303f58;
+  --color-tag-background: #18202c;
+  --color-skeleton: #242424;
+  --color-skeleton-highlight: #313131;
   color-scheme: dark;
-  --font-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Inter Variable', Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
   color: var(--color-heading);
   background: var(--color-background);
   font-family: var(--font-sans);
@@ -28,7 +39,7 @@ html {
 
 body {
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   background: var(--color-background);
 }
@@ -39,11 +50,34 @@ a {
 }
 
 #app {
-  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -4rem;
+  z-index: 20;
+  padding: 0.7rem 1rem;
+  border-radius: 0.4rem;
+  color: var(--color-background);
+  background: var(--color-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 160ms ease;
+}
+
+.skip-link:focus-visible {
+  top: 0.75rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .skip-link {
+    transition: none;
   }
 }

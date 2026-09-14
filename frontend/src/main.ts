@@ -1,9 +1,12 @@
+import '@fontsource-variable/inter'
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import App from './App.vue'
 import { inject } from '@vercel/analytics'
+import App from './App.vue'
 
 createApp(App).mount('#app')
 
-inject()
+if (import.meta.env.PROD) {
+  inject()
+}
