@@ -21,14 +21,15 @@ const currentYear = new Date().getFullYear()
 
       <nav class="contact__links" aria-label="Footer links">
         <a href="mailto:dev@martonaron.dev">Email</a>
-        <a href="https://github.com/Sciencewolf" target="_blank" rel="noreferrer">GitHub ↗</a>
-        <a
+        <a href="https://github.com/Sciencewolf" target="_blank" rel="me noreferrer">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/notaronmarton/" target="_blank" rel="me noreferrer">
+          LinkedIn ↗
+        </a>
+        <a>
           href="https://files.martonaron.dev/data/Marton_Aron_CV.pdf"
           target="_blank"
           rel="noreferrer"
-        >
-          CV ↗
-        </a>
+        >CV ↗</a>
       </nav>
 
       <p class="contact__credit">
