@@ -1,18 +1,20 @@
 <script setup lang="ts">
-const skills = ['Python', 'Flask', 'TypeScript', 'Vue', 'Kotlin']
+const skills = ['Python', 'Flask', 'TypeScript', 'React', 'Kotlin', 'Raspberry Pi']
 </script>
 
 <template>
   <section id="about" class="welcome" aria-labelledby="welcome-title">
-    <p class="welcome__eyebrow">Software Engineer</p>
+    <p class="welcome__eyebrow">Software Engineer · Debrecen, Hungary</p>
 
     <h1 id="welcome-title">Hi there, I'm Márton Áron.</h1>
 
     <p class="welcome__intro">
-      I build reliable software and practical digital products — from a Raspberry Pi-powered
-      smart incubator with its own Android app to full-stack web platforms. I'm currently
-      working as a software developer, and I enjoy turning ambitious ideas into simple,
-      maintainable solutions.
+      I'm a software developer working across the stack — Python and Flask on the backend,
+      TypeScript and Vue on the front — and I'm currently doing my Computer Science MSc at the
+      University of Debrecen. I keep one foot in hardware: my BSc thesis was a smart incubator
+      built on a Raspberry Pi, with its own control electronics and an Android app to run it.
+      These days I'm most interested in where embedded systems, IoT and edge computing meet the
+      web.
     </p>
 
     <div class="welcome__actions">
