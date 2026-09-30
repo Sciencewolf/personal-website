@@ -26,7 +26,7 @@ const currentYear = new Date().getFullYear()
           LinkedIn ↗
         </a>
         <a
-          href="https://files.martonaron.dev/data/Marton_Aron_CV.pdf"
+          href="https://files.martonaron.dev/api/files/Marton_Aron_CV.pdf"
           target="_blank"
           rel="noreferrer"
         >CV ↗</a>
