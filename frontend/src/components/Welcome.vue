@@ -10,7 +10,7 @@ const skills = ['Python', 'Flask', 'TypeScript', 'React', 'Kotlin', 'Raspberry P
 
     <p class="welcome__intro">
       I'm a software developer working across the stack — Python and Flask on the backend,
-      TypeScript and Vue on the front — and I'm currently doing my Computer Science MSc at the
+      TypeScript and React on the front — and I'm currently doing my Computer Science MSc at the
       University of Debrecen. I keep one foot in hardware: my BSc thesis was a smart incubator
       built on a Raspberry Pi, with its own control electronics and an Android app to run it.
       These days I'm most interested in where embedded systems, IoT and edge computing meet the
