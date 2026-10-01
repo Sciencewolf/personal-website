@@ -52,7 +52,7 @@ onBeforeUnmount(() => {
         <a href="#contact" @click="closeMenu">{{ m.nav.contact }}</a>
         <a
           class="nav__external"
-          href="https://files.martonaron.dev/data/Marton_Aron_CV.pdf"
+          href="https://files.martonaron.dev/api/files/Marton_Aron_CV.pdf"
           target="_blank"
           rel="noreferrer"
           @click="closeMenu"
