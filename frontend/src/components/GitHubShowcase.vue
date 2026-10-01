@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
+import { format, useI18n } from '@/i18n'
 import {
   fetchGitHubProfile,
   fetchGitHubRepositories,
@@ -8,10 +9,18 @@ import {
   type GitHubRepository,
 } from '@/services/github'
 
+const { locale, m } = useI18n()
 const profile = ref<GitHubProfile | null>(null)
 const repositories = ref<GitHubRepository[]>([])
 const isLoading = ref(true)
-const errorMessage = ref('')
+const hasError = ref(false)
+const errorMessage = computed(() => {
+  if (!hasError.value) return ''
+
+  return profile.value || repositories.value.length
+    ? m.value.github.partialError
+    : m.value.github.unavailable
+})
 let controller: AbortController | null = null
 
 const repositoryLimit = 6
@@ -24,20 +33,22 @@ const githubUrl = computed(() => {
 function formatDate(value: string): string {
   const date = new Date(value)
 
-  if (Number.isNaN(date.getTime())) return 'Recently updated'
+  if (Number.isNaN(date.getTime())) return m.value.github.recentlyUpdated
 
-  return `Updated ${new Intl.DateTimeFormat('en', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  }).format(date)}`
+  return format(m.value.github.updated, {
+    date: new Intl.DateTimeFormat(locale.value, {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    }).format(date),
+  })
 }
 
 async function loadGitHubData() {
   controller?.abort()
   controller = new AbortController()
   isLoading.value = true
-  errorMessage.value = ''
+  hasError.value = false
 
   const [profileResult, repositoriesResult] = await Promise.allSettled([
     fetchGitHubProfile(controller.signal),
@@ -47,13 +58,7 @@ async function loadGitHubData() {
   if (profileResult.status === 'fulfilled') profile.value = profileResult.value
   if (repositoriesResult.status === 'fulfilled') repositories.value = repositoriesResult.value
 
-  if (profileResult.status === 'rejected' || repositoriesResult.status === 'rejected') {
-    errorMessage.value =
-      profile.value || repositories.value.length
-        ? 'Some GitHub information could not be loaded.'
-        : 'GitHub information is temporarily unavailable.'
-  }
-
+  hasError.value = profileResult.status === 'rejected' || repositoriesResult.status === 'rejected'
   isLoading.value = false
 }
 
@@ -65,12 +70,12 @@ onBeforeUnmount(() => controller?.abort())
   <section id="projects" class="github" aria-labelledby="github-title">
     <div class="github__heading">
       <div>
-        <p class="github__eyebrow">Open source</p>
-        <h2 id="github-title">Latest work on GitHub</h2>
+        <p class="github__eyebrow">{{ m.github.eyebrow }}</p>
+        <h2 id="github-title">{{ m.github.title }}</h2>
       </div>
 
       <a class="github__all-link" :href="githubUrl" target="_blank" rel="noreferrer">
-        View profile <span aria-hidden="true">↗</span>
+        {{ m.github.viewProfile }} <span aria-hidden="true">↗</span>
       </a>
     </div>
 
@@ -78,7 +83,7 @@ onBeforeUnmount(() => controller?.abort())
       <img
         class="profile__avatar"
         :src="profile.avatarUrl"
-        :alt="`${profile.name}'s avatar`"
+        :alt="format(m.github.avatarAlt, { name: profile.name })"
         width="48"
         height="48"
         loading="lazy"
@@ -91,7 +96,7 @@ onBeforeUnmount(() => controller?.abort())
     </div>
 
     <div v-if="isLoading" class="repositories repositories--loading" aria-live="polite">
-      <span class="sr-only">Loading GitHub repositories…</span>
+      <span class="sr-only">{{ m.github.loading }}</span>
       <article v-for="index in 3" :key="index" class="repo-card repo-card--skeleton">
         <span></span><span></span><span></span>
       </article>
@@ -101,7 +106,7 @@ onBeforeUnmount(() => controller?.abort())
       <article v-for="repo in visibleRepositories" :key="repo.fullName" class="repo-card">
         <div class="repo-card__topline">
           <span class="repo-card__icon" aria-hidden="true">⌁</span>
-          <span>Public repository</span>
+          <span>{{ m.github.publicRepository }}</span>
         </div>
 
         <h3>
@@ -111,10 +116,10 @@ onBeforeUnmount(() => controller?.abort())
         </h3>
 
         <p class="repo-card__description">
-          {{ repo.description || 'A project from my GitHub workspace.' }}
+          {{ repo.description || m.github.noDescription }}
         </p>
 
-        <ul v-if="repo.topics.length" class="repo-card__topics" aria-label="Repository topics">
+        <ul v-if="repo.topics.length" class="repo-card__topics" :aria-label="m.github.topicsLabel">
           <li v-for="topic in repo.topics.slice(0, 4)" :key="topic">{{ topic }}</li>
         </ul>
 
@@ -125,22 +130,22 @@ onBeforeUnmount(() => controller?.abort())
             :href="repo.homepage"
             target="_blank"
             rel="noreferrer"
-            aria-label="Open live project"
+            :aria-label="m.github.openLiveProject"
           >
-            Live site ↗
+            {{ m.github.liveSite }} ↗
           </a>
         </div>
       </article>
     </div>
 
     <div v-else class="github__empty">
-      <p>{{ errorMessage || 'No public repositories to show yet.' }}</p>
-      <button type="button" @click="loadGitHubData">Try again</button>
+      <p>{{ errorMessage || m.github.empty }}</p>
+      <button type="button" @click="loadGitHubData">{{ m.github.tryAgain }}</button>
     </div>
 
     <p v-if="errorMessage && visibleRepositories.length" class="github__notice" role="status">
       {{ errorMessage }}
-      <button type="button" @click="loadGitHubData">Retry</button>
+      <button type="button" @click="loadGitHubData">{{ m.github.retry }}</button>
     </p>
   </section>
 </template>

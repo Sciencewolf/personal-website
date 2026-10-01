@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue'
 import Welcome from '@/components/Welcome.vue'
+import SkillsSection from '@/components/SkillsSection.vue'
+import ExperienceTimeline from '@/components/ExperienceTimeline.vue'
 import GitHubShowcase from '@/components/GitHubShowcase.vue'
 import ContactFooter from '@/components/ContactFooter.vue'
 </script>
@@ -14,6 +16,8 @@ import ContactFooter from '@/components/ContactFooter.vue'
 
   <main id="main" class="site-main">
     <Welcome />
+    <SkillsSection />
+    <ExperienceTimeline />
     <GitHubShowcase />
   </main>
 

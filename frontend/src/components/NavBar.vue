@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
+import { useTheme } from '@/composables/useTheme'
+import { useI18n } from '@/i18n'
+
+const { locale, m, toggleLocale } = useI18n()
+const { theme, toggleTheme } = useTheme()
+
 const isMenuOpen = ref(false)
 const navElement = ref<HTMLElement | null>(null)
 const toggleElement = ref<HTMLButtonElement | null>(null)
@@ -35,45 +41,98 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <nav ref="navElement" class="nav" aria-label="Main navigation">
-    <a class="nav__brand" href="#about" aria-label="Márton Áron – home" @click="closeMenu">MÁ<span>.</span></a>
+  <nav ref="navElement" class="nav" :aria-label="m.nav.label">
+    <a class="nav__brand" href="#about" :aria-label="m.nav.home" @click="closeMenu">MÁ<span>.</span></a>
 
-    <button
-      ref="toggleElement"
-      type="button"
-      class="nav__toggle"
-      aria-label="Toggle navigation menu"
-      :aria-expanded="isMenuOpen"
-      aria-controls="nav-links"
-      @click="isMenuOpen = !isMenuOpen"
-    >
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </button>
+    <div class="nav__end">
+      <div id="nav-links" class="nav__links" :class="{ 'nav__links--open': isMenuOpen }">
+        <a href="#about" @click="closeMenu">{{ m.nav.about }}</a>
+        <a href="#skills" @click="closeMenu">{{ m.nav.skills }}</a>
+        <a href="#experience" @click="closeMenu">{{ m.nav.experience }}</a>
+        <a class="nav__projects" href="#projects" @click="closeMenu">{{ m.nav.projects }}</a>
+        <a href="#contact" @click="closeMenu">{{ m.nav.contact }}</a>
+        <a
+          class="nav__external"
+          href="https://files.martonaron.dev/data/Marton_Aron_CV.pdf"
+          target="_blank"
+          rel="noreferrer"
+          @click="closeMenu"
+        >
+          {{ m.nav.cv }} <span aria-hidden="true">↗</span>
+        </a>
+        <a
+          class="nav__external"
+          href="https://github.com/Sciencewolf"
+          target="_blank"
+          rel="noreferrer"
+          @click="closeMenu"
+        >
+          {{ m.nav.github }} <span aria-hidden="true">↗</span>
+        </a>
+      </div>
 
-    <div id="nav-links" class="nav__links" :class="{ 'nav__links--open': isMenuOpen }">
-      <a href="#about" @click="closeMenu">About</a>
-      <a class="nav__projects" href="#projects" @click="closeMenu">Projects</a>
-      <a href="#contact" @click="closeMenu">Contact</a>
-      <a
-        class="nav__external"
-        href="https://files.martonaron.dev/data/Marton_Aron_CV.pdf"
-        target="_blank"
-        rel="noreferrer"
-        @click="closeMenu"
+      <div class="nav__controls">
+        <button
+          type="button"
+          class="nav__control nav__language"
+          :aria-label="m.nav.switchLanguage"
+          @click="toggleLocale"
+        >
+          <span :class="{ 'is-active': locale === 'en' }" lang="en">EN</span>
+          <span aria-hidden="true">/</span>
+          <span :class="{ 'is-active': locale === 'hu' }" lang="hu">HU</span>
+        </button>
+
+        <button
+          type="button"
+          class="nav__control nav__theme"
+          :aria-label="theme === 'dark' ? m.nav.switchToLight : m.nav.switchToDark"
+          @click="toggleTheme"
+        >
+          <svg
+            v-if="theme === 'dark'"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+          <svg
+            v-else
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+        </button>
+      </div>
+
+      <button
+        ref="toggleElement"
+        type="button"
+        class="nav__toggle"
+        :aria-label="m.nav.toggleMenu"
+        :aria-expanded="isMenuOpen"
+        aria-controls="nav-links"
+        @click="isMenuOpen = !isMenuOpen"
       >
-        CV <span aria-hidden="true">↗</span>
-      </a>
-      <a
-        class="nav__external"
-        href="https://github.com/Sciencewolf"
-        target="_blank"
-        rel="noreferrer"
-        @click="closeMenu"
-      >
-        GitHub <span aria-hidden="true">↗</span>
-      </a>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
     </div>
   </nav>
 </template>
@@ -98,6 +157,52 @@ onBeforeUnmount(() => {
 
 .nav__brand span {
   color: var(--color-accent);
+}
+
+.nav__end {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 3vw, 2.4rem);
+}
+
+.nav__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav__control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.4rem;
+  color: var(--color-text-muted);
+  background: transparent;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.nav__control:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+}
+
+.nav__control:focus-visible,
+.nav__toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.nav__language .is-active {
+  color: var(--color-heading);
 }
 
 .nav__toggle {
@@ -151,6 +256,10 @@ onBeforeUnmount(() => {
     display: flex;
   }
 
+  .nav__end {
+    gap: 0.5rem;
+  }
+
   .nav__links {
     position: absolute;
     top: 100%;
@@ -185,6 +294,7 @@ onBeforeUnmount(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .nav__control,
   .nav__links a {
     transition: none;
   }

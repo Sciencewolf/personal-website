@@ -1,16 +1,16 @@
 <script setup lang="ts">
+import { useI18n } from '@/i18n'
+
+const { m } = useI18n()
 const currentYear = new Date().getFullYear()
 </script>
 
 <template>
   <footer id="contact" class="contact" aria-labelledby="contact-title">
     <div class="contact__intro">
-      <p class="contact__eyebrow">Contact</p>
-      <h2 id="contact-title">Have a project in mind? Let’s talk.</h2>
-      <p>
-        I’m always open to interesting projects, new opportunities, and conversations about
-        building thoughtful software.
-      </p>
+      <p class="contact__eyebrow">{{ m.contact.eyebrow }}</p>
+      <h2 id="contact-title">{{ m.contact.title }}</h2>
+      <p>{{ m.contact.text }}</p>
       <a class="contact__email" href="mailto:dev@martonaron.dev">
         dev@martonaron.dev <span aria-hidden="true">↗</span>
       </a>
@@ -19,8 +19,8 @@ const currentYear = new Date().getFullYear()
     <div class="contact__bottom">
       <p>© {{ currentYear }} Márton Áron</p>
 
-      <nav class="contact__links" aria-label="Footer links">
-        <a href="mailto:dev@martonaron.dev">Email</a>
+      <nav class="contact__links" :aria-label="m.contact.footerLinks">
+        <a href="mailto:dev@martonaron.dev">{{ m.contact.email }}</a>
         <a href="https://github.com/Sciencewolf" target="_blank" rel="me noreferrer">GitHub ↗</a>
         <a href="https://www.linkedin.com/in/notaronmarton/" target="_blank" rel="me noreferrer">
           LinkedIn ↗
@@ -33,7 +33,7 @@ const currentYear = new Date().getFullYear()
       </nav>
 
       <p class="contact__credit">
-        Developed with <span aria-label="love">❤️</span> by
+        {{ m.contact.creditBefore }} <span :aria-label="m.contact.creditHeart">❤️</span> {{ m.contact.creditAfter }}
         <a href="https://github.com/Sciencewolf" target="_blank" rel="noreferrer">&lt;Márton Áron&gt;</a>
       </p>
     </div>

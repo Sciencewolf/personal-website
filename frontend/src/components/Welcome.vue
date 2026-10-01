@@ -1,28 +1,24 @@
 <script setup lang="ts">
+import { useI18n } from '@/i18n'
+
+const { m } = useI18n()
 const skills = ['Python', 'Flask', 'TypeScript', 'React', 'Kotlin', 'Raspberry Pi']
 </script>
 
 <template>
   <section id="about" class="welcome" aria-labelledby="welcome-title">
-    <p class="welcome__eyebrow">Software Engineer · Debrecen, Hungary</p>
+    <p class="welcome__eyebrow">{{ m.welcome.eyebrow }}</p>
 
-    <h1 id="welcome-title">Hi there, I'm Márton Áron.</h1>
+    <h1 id="welcome-title">{{ m.welcome.title }}</h1>
 
-    <p class="welcome__intro">
-      I'm a software developer working across the stack — Python and Flask on the backend,
-      TypeScript and React on the front — and I'm currently doing my Computer Science MSc at the
-      University of Debrecen. I keep one foot in hardware: my BSc thesis was a smart incubator
-      built on a Raspberry Pi, with its own control electronics and an Android app to run it.
-      These days I'm most interested in where embedded systems, IoT and edge computing meet the
-      web.
-    </p>
+    <p class="welcome__intro">{{ m.welcome.intro }}</p>
 
     <div class="welcome__actions">
-      <a class="button button--primary" href="#projects">View my work</a>
-      <a class="button button--secondary" href="#contact">Get in touch</a>
+      <a class="button button--primary" href="#projects">{{ m.welcome.viewWork }}</a>
+      <a class="button button--secondary" href="#contact">{{ m.welcome.getInTouch }}</a>
     </div>
 
-    <ul class="welcome__skills" aria-label="Main skills">
+    <ul class="welcome__skills" :aria-label="m.welcome.skillsLabel">
       <li v-for="skill in skills" :key="skill">{{ skill }}</li>
     </ul>
   </section>
