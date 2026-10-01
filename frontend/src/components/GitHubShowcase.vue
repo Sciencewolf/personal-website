@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
-import { format, useI18n } from '@/i18n'
+import { format, m } from '@/i18n'
 import {
   fetchGitHubProfile,
   fetchGitHubRepositories,
@@ -9,7 +9,6 @@ import {
   type GitHubRepository,
 } from '@/services/github'
 
-const { locale, m } = useI18n()
 const profile = ref<GitHubProfile | null>(null)
 const repositories = ref<GitHubRepository[]>([])
 const isLoading = ref(true)
@@ -18,8 +17,8 @@ const errorMessage = computed(() => {
   if (!hasError.value) return ''
 
   return profile.value || repositories.value.length
-    ? m.value.github.partialError
-    : m.value.github.unavailable
+    ? m.github.partialError
+    : m.github.unavailable
 })
 let controller: AbortController | null = null
 
@@ -33,10 +32,10 @@ const githubUrl = computed(() => {
 function formatDate(value: string): string {
   const date = new Date(value)
 
-  if (Number.isNaN(date.getTime())) return m.value.github.recentlyUpdated
+  if (Number.isNaN(date.getTime())) return m.github.recentlyUpdated
 
-  return format(m.value.github.updated, {
-    date: new Intl.DateTimeFormat(locale.value, {
+  return format(m.github.updated, {
+    date: new Intl.DateTimeFormat('en', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',

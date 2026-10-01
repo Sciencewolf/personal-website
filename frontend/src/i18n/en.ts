@@ -30,13 +30,12 @@ export const en = {
     toggleMenu: 'Toggle navigation menu',
     switchToLight: 'Switch to light theme',
     switchToDark: 'Switch to dark theme',
-    switchLanguage: 'Switch language to Hungarian',
   },
   welcome: {
     eyebrow: 'Software Engineer · Debrecen, Hungary',
     title: "Hi there, I'm Márton Áron.",
     intro:
-      "I'm a software developer working across the stack — Python and Flask on the backend, TypeScript and React on the front — and I'm currently doing my Computer Science MSc at the University of Debrecen. I keep one foot in hardware: my BSc thesis was an intelligent chick incubator built on a Raspberry Pi, with its own control electronics and an Android app to run it. These days I'm most interested in where embedded systems, IoT and edge computing meet the web.",
+      "I'm a software developer working across the stack — Python and Flask on the backend, TypeScript and React on the front — and I currently build automation pipelines and internal tools in Python and n8n alongside my Computer Science MSc at the University of Debrecen. I keep one foot in hardware: my BSc thesis was a smart chicken incubator built on a Raspberry Pi, with its own control electronics and an Android app to run it. These days I'm most interested in where embedded systems, IoT and edge computing meet the web.",
     viewWork: 'View my work',
     getInTouch: 'Get in touch',
     skillsLabel: 'Main skills',
@@ -46,16 +45,28 @@ export const en = {
     title: 'What I work with',
     intro: 'The tools I reach for most, from the server and the browser down to the hardware.',
     groups: [
-      { name: 'Backend', items: ['Python', 'Flask', 'REST APIs'] },
-      { name: 'Frontend', items: ['TypeScript', 'JavaScript', 'Vue 3', 'React', 'Vite'] },
-      { name: 'Mobile', items: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Android'] },
+      { name: 'Languages', items: ['Python', 'TypeScript', 'JavaScript', 'Java', 'Kotlin', 'C++'] },
+      { name: 'Backend & data', items: ['Flask', 'REST APIs', 'PostgreSQL', 'Supabase'] },
+      {
+        name: 'Frontend & mobile',
+        items: ['React', 'Vue 3', 'HTML', 'CSS', 'Vite', 'Android', 'Jetpack Compose', 'Retrofit'],
+      },
+      { name: 'Automation & AI', items: ['n8n', 'OpenAI API', 'Gemini API'] },
       {
         name: 'Embedded & hardware',
-        items: ['Raspberry Pi', 'C++', 'Sensors & relays', 'Control electronics', 'IoT'],
+        items: ['Raspberry Pi', 'Sensors & relays', 'Control electronics', 'IoT'],
       },
       {
         name: 'Tools & infrastructure',
-        items: ['Git', 'GitHub Actions', 'Docker', 'Linux', 'Cloudflare Tunnel', 'Vercel'],
+        items: [
+          'Git',
+          'GitHub Actions',
+          'Docker',
+          'Linux',
+          'Cloudflare Tunnel',
+          'Postman',
+          'Vercel',
+        ],
       },
     ],
   },
@@ -66,29 +77,25 @@ export const en = {
     educationHeading: 'Education',
     experience: [
       {
-        title: 'Independent software developer',
-        organization: 'Personal & open-source projects',
-        period: 'Ongoing',
+        title: 'Automation & Backend Developer Intern',
+        organization: 'Debrecen, Hungary',
+        period: '2025 – Present',
         description:
-          'Building and hosting my own projects end to end: this portfolio (Vue 3, TypeScript, Flask), a file server on a Raspberry Pi published through a Cloudflare Tunnel, and a C++ command-line client for it.',
+          'Designed and maintain a fully automated n8n product-enrichment pipeline that processes 20,000+ products a day and cut manual work by 90%. I build and document Python REST APIs and internal business applications for automation, reporting and data management, and production n8n workflows that use the OpenAI and Gemini APIs for data enrichment, classification and content generation. I also built internal and customer-facing web apps, such as a replacement-support portal and an in-store coupon generator, integrating PostgreSQL and third-party REST APIs.',
       },
       {
-        title: 'Intelligent chick incubator',
-        organization: 'Embedded & IoT project · BSc thesis',
-        period: '2025',
+        title: 'Web Development Intern',
+        organization: 'React',
+        period: 'Feb 2025 – Jun 2025',
         description:
-          'A Raspberry Pi 4 controls the whole incubator: an AHT20 sensor measures temperature and humidity, relays switch the heating element and the fan, a DC motor turns the eggs, a limit switch detects the open lid, and LEDs show the state. I wired the electronics myself and wrote the Python backend and an Android app (Kotlin, Jetpack Compose, Retrofit) to monitor and control it. Tested in two real hatching cycles.',
-        links: [
-          { label: 'Hardware & backend', href: 'https://github.com/Sciencewolf/szakdolgozat-raspberry-pi' },
-          { label: 'Android app', href: 'https://github.com/Sciencewolf/szakdolgozat-app' },
-        ],
+          'Maintained and extended existing React applications: fixed frontend issues, delivered new features and refactored reusable UI components for maintainability in an established codebase.',
       },
     ] as TimelineItem[],
     education: [
       {
         title: 'Computer Science MSc',
         organization: 'University of Debrecen · Faculty of Informatics',
-        period: '2026 – 2028',
+        period: '2026 – 2028 (expected)',
         description:
           'Interested in embedded systems, IoT and edge computing, and in how they connect to the web.',
       },
@@ -97,8 +104,12 @@ export const en = {
         organization: 'University of Debrecen · Faculty of Informatics',
         period: '2022 – 2026',
         description:
-          'Thesis: Intelligent chick incubator — Raspberry Pi and Android integration (written in Hungarian).',
-        links: [{ label: 'Thesis (PDF)', href: 'https://github.com/Sciencewolf/szakdolgozat/blob/main/szakdolgozat.pdf' }],
+          'Thesis project: a smart chicken incubator, built end to end. A Raspberry Pi 4 with temperature and humidity sensing, heating and cooling control and motorized egg rotation, a Python/Flask REST API for telemetry, hardware control and statistics, and an Android app (Kotlin, Jetpack Compose, Retrofit) for real-time monitoring and remote control. Tested in two real hatching cycles.',
+        links: [
+          { label: 'Thesis (PDF)', href: 'https://github.com/Sciencewolf/szakdolgozat/blob/main/szakdolgozat.pdf' },
+          { label: 'Hardware & backend', href: 'https://github.com/Sciencewolf/szakdolgozat-raspberry-pi' },
+          { label: 'Android app', href: 'https://github.com/Sciencewolf/szakdolgozat-app' },
+        ],
       },
     ] as TimelineItem[],
   },

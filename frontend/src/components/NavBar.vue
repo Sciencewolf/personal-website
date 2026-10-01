@@ -2,9 +2,8 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 import { useTheme } from '@/composables/useTheme'
-import { useI18n } from '@/i18n'
+import { m } from '@/i18n'
 
-const { locale, m, toggleLocale } = useI18n()
 const { theme, toggleTheme } = useTheme()
 
 const isMenuOpen = ref(false)
@@ -72,17 +71,6 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="nav__controls">
-        <button
-          type="button"
-          class="nav__control nav__language"
-          :aria-label="m.nav.switchLanguage"
-          @click="toggleLocale"
-        >
-          <span :class="{ 'is-active': locale === 'en' }" lang="en">EN</span>
-          <span aria-hidden="true">/</span>
-          <span :class="{ 'is-active': locale === 'hu' }" lang="hu">HU</span>
-        </button>
-
         <button
           type="button"
           class="nav__control nav__theme"
@@ -199,10 +187,6 @@ onBeforeUnmount(() => {
 .nav__toggle:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-}
-
-.nav__language .is-active {
-  color: var(--color-heading);
 }
 
 .nav__toggle {

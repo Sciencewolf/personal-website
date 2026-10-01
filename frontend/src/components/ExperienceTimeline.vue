@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { m } from '@/i18n'
 
-import { useI18n } from '@/i18n'
-
-const { m } = useI18n()
-
-const columns = computed(() => [
-  { id: 'experience', heading: m.value.experience.experienceHeading, items: m.value.experience.experience },
-  { id: 'education', heading: m.value.experience.educationHeading, items: m.value.experience.education },
-])
+const columns = [
+  { id: 'experience', heading: m.experience.experienceHeading, items: m.experience.experience },
+  { id: 'education', heading: m.experience.educationHeading, items: m.experience.education },
+]
 </script>
 
 <template>

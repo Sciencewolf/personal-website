@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from '@/i18n'
+import { m } from '@/i18n'
 
-const { m } = useI18n()
 const skills = ['Python', 'Flask', 'TypeScript', 'React', 'Kotlin', 'Raspberry Pi']
 </script>
 
