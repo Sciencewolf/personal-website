@@ -26,6 +26,13 @@ const columns = computed(() => [
             <h4>{{ item.title }}</h4>
             <p v-if="item.organization" class="timeline__organization">{{ item.organization }}</p>
             <p class="timeline__description">{{ item.description }}</p>
+            <ul v-if="item.links?.length" class="timeline__links">
+              <li v-for="link in item.links" :key="link.href">
+                <a :href="link.href" target="_blank" rel="noreferrer">
+                  {{ link.label }} <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            </ul>
           </li>
         </ol>
       </div>
@@ -116,6 +123,30 @@ h4 {
   color: var(--color-text-muted);
   font-size: 0.9rem;
   line-height: 1.65;
+}
+
+.timeline__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline__links a {
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.timeline__links a:hover,
+.timeline__links a:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-heading);
 }
 
 @media (max-width: 800px) {

@@ -1,4 +1,4 @@
-import type { Messages } from './en'
+import type { Messages, TimelineItem } from './en'
 
 export const hu: Messages = {
   meta: {
@@ -25,7 +25,7 @@ export const hu: Messages = {
     eyebrow: 'Szoftverfejlesztő · Debrecen, Magyarország',
     title: 'Szia, Márton Áron vagyok.',
     intro:
-      'Szoftverfejlesztő vagyok, a teljes stackkel dolgozom — a háttérben Python és Flask, elöl TypeScript és React —, és jelenleg a Debreceni Egyetemen végzem az informatika MSc-t. Egyik lábam a hardvernél maradt: a BSc szakdolgozatom egy Raspberry Pi-re épülő okos inkubátor volt, saját vezérlő elektronikával és egy Android alkalmazással a vezérléséhez. Mostanában az érdekel a leginkább, ahol a beágyazott rendszerek, az IoT és az edge computing találkozik a weben.',
+      'Szoftverfejlesztő vagyok, a teljes stackkel dolgozom — a háttérben Python és Flask, elöl TypeScript és React —, és jelenleg a Debreceni Egyetemen végzem az informatika MSc-t. Egyik lábam a hardvernél maradt: a BSc szakdolgozatom egy Raspberry Pi-re épülő intelligens csibekeltető volt, saját vezérlő elektronikával és egy Android alkalmazással a vezérléséhez. Mostanában az érdekel a leginkább, ahol a beágyazott rendszerek, az IoT és az edge computing találkozik a weben.',
     viewWork: 'Munkáim',
     getInTouch: 'Kapcsolatfelvétel',
     skillsLabel: 'Fő készségek',
@@ -37,14 +37,14 @@ export const hu: Messages = {
     groups: [
       { name: 'Backend', items: ['Python', 'Flask', 'REST API-k'] },
       { name: 'Frontend', items: ['TypeScript', 'JavaScript', 'Vue 3', 'React', 'Vite'] },
-      { name: 'Mobil', items: ['Kotlin', 'Android'] },
+      { name: 'Mobil', items: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Android'] },
       {
         name: 'Beágyazott rendszerek és hardver',
-        items: ['Raspberry Pi', 'C++', 'Vezérlő elektronika', 'IoT'],
+        items: ['Raspberry Pi', 'C++', 'Szenzorok és relék', 'Vezérlő elektronika', 'IoT'],
       },
       {
         name: 'Eszközök és infrastruktúra',
-        items: ['Git', 'GitHub Actions', 'Linux', 'Cloudflare Tunnel', 'Vercel'],
+        items: ['Git', 'GitHub Actions', 'Docker', 'Linux', 'Cloudflare Tunnel', 'Vercel'],
       },
     ],
   },
@@ -62,29 +62,34 @@ export const hu: Messages = {
           'A saját projektjeimet az elejétől a végéig magam építem és üzemeltetem: ez a portfólió (Vue 3, TypeScript, Flask), egy Raspberry Pi-n futó, Cloudflare Tunnelen át elérhető fájlszerver és egy C++ parancssoros kliens hozzá.',
       },
       {
-        title: 'Okos inkubátor',
-        organization: 'Beágyazott rendszer és IoT projekt',
-        period: '',
+        title: 'Intelligens csibekeltető',
+        organization: 'Beágyazott rendszer és IoT projekt · BSc szakdolgozat',
+        period: '2025',
         description:
-          'Raspberry Pi-vel vezérelt inkubátort terveztem és építettem saját vezérlő elektronikával és egy Android alkalmazással a működtetéséhez.',
+          'Az egész keltetőt egy Raspberry Pi 4 vezérli: egy AHT20 szenzor méri a hőmérsékletet és a páratartalmat, relék kapcsolják a fűtőbetétet és a ventilátort, egy DC motor forgatja a tojásokat, egy végálláskapcsoló jelzi a nyitott fedelet, LED-ek mutatják az állapotot. Az elektronikát magam kötöttem be, a Python backendet és egy Android alkalmazást (Kotlin, Jetpack Compose, Retrofit) pedig a megfigyeléséhez és vezérléséhez írtam. Két valódi keltetési ciklusban teszteltem.',
+        links: [
+          { label: 'Hardver és backend', href: 'https://github.com/Sciencewolf/szakdolgozat-raspberry-pi' },
+          { label: 'Android alkalmazás', href: 'https://github.com/Sciencewolf/szakdolgozat-app' },
+        ],
       },
-    ],
+    ] as TimelineItem[],
     education: [
       {
         title: 'Programtervező informatikus MSc',
-        organization: 'Debreceni Egyetem',
-        period: 'Folyamatban',
+        organization: 'Debreceni Egyetem · Informatikai Kar',
+        period: '2026 – 2028',
         description:
           'A beágyazott rendszerek, az IoT és az edge computing érdekel, és hogy ezek hogyan kapcsolódnak a webhez.',
       },
       {
-        title: 'BSc diploma',
-        organization: '',
-        period: '',
+        title: 'Programtervező informatikus BSc',
+        organization: 'Debreceni Egyetem · Informatikai Kar',
+        period: '2022 – 2026',
         description:
-          'Szakdolgozat: Raspberry Pi alapú okos inkubátor Android vezérlőalkalmazással.',
+          'Szakdolgozat: Intelligens csibekeltető — Raspberry Pi és Android integráció.',
+        links: [{ label: 'Szakdolgozat (PDF)', href: 'https://github.com/Sciencewolf/szakdolgozat/blob/main/szakdolgozat.pdf' }],
       },
-    ],
+    ] as TimelineItem[],
   },
   github: {
     eyebrow: 'Nyílt forráskód',

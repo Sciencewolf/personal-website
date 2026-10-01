@@ -1,3 +1,16 @@
+export interface TimelineLink {
+  label: string
+  href: string
+}
+
+export interface TimelineItem {
+  title: string
+  organization: string
+  period: string
+  description: string
+  links?: TimelineLink[]
+}
+
 export const en = {
   meta: {
     title: 'Márton Áron • Software Engineer',
@@ -23,7 +36,7 @@ export const en = {
     eyebrow: 'Software Engineer · Debrecen, Hungary',
     title: "Hi there, I'm Márton Áron.",
     intro:
-      "I'm a software developer working across the stack — Python and Flask on the backend, TypeScript and React on the front — and I'm currently doing my Computer Science MSc at the University of Debrecen. I keep one foot in hardware: my BSc thesis was a smart incubator built on a Raspberry Pi, with its own control electronics and an Android app to run it. These days I'm most interested in where embedded systems, IoT and edge computing meet the web.",
+      "I'm a software developer working across the stack — Python and Flask on the backend, TypeScript and React on the front — and I'm currently doing my Computer Science MSc at the University of Debrecen. I keep one foot in hardware: my BSc thesis was an intelligent chick incubator built on a Raspberry Pi, with its own control electronics and an Android app to run it. These days I'm most interested in where embedded systems, IoT and edge computing meet the web.",
     viewWork: 'View my work',
     getInTouch: 'Get in touch',
     skillsLabel: 'Main skills',
@@ -35,14 +48,14 @@ export const en = {
     groups: [
       { name: 'Backend', items: ['Python', 'Flask', 'REST APIs'] },
       { name: 'Frontend', items: ['TypeScript', 'JavaScript', 'Vue 3', 'React', 'Vite'] },
-      { name: 'Mobile', items: ['Kotlin', 'Android'] },
+      { name: 'Mobile', items: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Android'] },
       {
         name: 'Embedded & hardware',
-        items: ['Raspberry Pi', 'C++', 'Control electronics', 'IoT'],
+        items: ['Raspberry Pi', 'C++', 'Sensors & relays', 'Control electronics', 'IoT'],
       },
       {
         name: 'Tools & infrastructure',
-        items: ['Git', 'GitHub Actions', 'Linux', 'Cloudflare Tunnel', 'Vercel'],
+        items: ['Git', 'GitHub Actions', 'Docker', 'Linux', 'Cloudflare Tunnel', 'Vercel'],
       },
     ],
   },
@@ -60,28 +73,34 @@ export const en = {
           'Building and hosting my own projects end to end: this portfolio (Vue 3, TypeScript, Flask), a file server on a Raspberry Pi published through a Cloudflare Tunnel, and a C++ command-line client for it.',
       },
       {
-        title: 'Smart incubator',
-        organization: 'Embedded & IoT project',
-        period: '',
+        title: 'Intelligent chick incubator',
+        organization: 'Embedded & IoT project · BSc thesis',
+        period: '2025',
         description:
-          'Designed and built an incubator controlled by a Raspberry Pi, with custom control electronics and an Android app to operate it.',
+          'A Raspberry Pi 4 controls the whole incubator: an AHT20 sensor measures temperature and humidity, relays switch the heating element and the fan, a DC motor turns the eggs, a limit switch detects the open lid, and LEDs show the state. I wired the electronics myself and wrote the Python backend and an Android app (Kotlin, Jetpack Compose, Retrofit) to monitor and control it. Tested in two real hatching cycles.',
+        links: [
+          { label: 'Hardware & backend', href: 'https://github.com/Sciencewolf/szakdolgozat-raspberry-pi' },
+          { label: 'Android app', href: 'https://github.com/Sciencewolf/szakdolgozat-app' },
+        ],
       },
-    ],
+    ] as TimelineItem[],
     education: [
       {
         title: 'Computer Science MSc',
-        organization: 'University of Debrecen',
-        period: 'In progress',
+        organization: 'University of Debrecen · Faculty of Informatics',
+        period: '2026 – 2028',
         description:
           'Interested in embedded systems, IoT and edge computing, and in how they connect to the web.',
       },
       {
-        title: 'BSc degree',
-        organization: '',
-        period: '',
-        description: 'Thesis: a Raspberry Pi based smart incubator with an Android control app.',
+        title: 'Computer Science BSc',
+        organization: 'University of Debrecen · Faculty of Informatics',
+        period: '2022 – 2026',
+        description:
+          'Thesis: Intelligent chick incubator — Raspberry Pi and Android integration (written in Hungarian).',
+        links: [{ label: 'Thesis (PDF)', href: 'https://github.com/Sciencewolf/szakdolgozat/blob/main/szakdolgozat.pdf' }],
       },
-    ],
+    ] as TimelineItem[],
   },
   github: {
     eyebrow: 'Open source',
