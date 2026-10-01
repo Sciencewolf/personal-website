@@ -12,11 +12,6 @@ export interface TimelineItem {
 }
 
 export const en = {
-  meta: {
-    title: 'Márton Áron • Software Engineer',
-    description:
-      'Software engineer and Computer Science MSc student in Debrecen. I build full-stack web apps and Raspberry Pi hardware projects with Python, React and Kotlin.',
-  },
   nav: {
     label: 'Main navigation',
     home: 'Márton Áron – home',
